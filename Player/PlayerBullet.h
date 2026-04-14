@@ -7,6 +7,30 @@ using namespace KamataEngine;
 /// </summary>
 class PlayerBullet {
 
+private:
+	// キーボード入力
+	Input* input_ = nullptr;
+
+	// 速度
+	Vector3 velocity_;
+
+	// デスフラグ
+	bool isDead_ = false;
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+
+	// 寿命
+	static const int32_t kLifeTime = 60;
+
+	float radius_ = 1.0f;
+
+	// モデル
+	Model* model_ = nullptr;
+
+	// カメラ
+	Camera* camera_;
+
+
 public:
 	
 	/// <summary>
@@ -51,27 +75,5 @@ public:
 	float GetRadius() const { return radius_; }
 	// ワールド変換データ
 	WorldTransform worldTransform;
-private:
 
-	// キーボード入力
-	Input* input_ = nullptr;
-
-	// 速度
-	Vector3 velocity_;
-
-	// デスフラグ
-	bool isDead_ = false;
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-
-	// 寿命
-	static const int32_t kLifeTime = 60;
-
-	float radius_ = 1.0f;
-
-	// モデル
-	Model* model_ = nullptr;
-
-	// カメラ
-	Camera* camera_;
 };

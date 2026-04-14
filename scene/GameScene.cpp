@@ -83,7 +83,7 @@ void GameScene::EnemyBulletPlayerCollision() {
 
 	for (EnemyBullet* eb : enemy_->GetBullets()) {
 		
-			if (IsCircleCollision(eb->worldTransform.translation_, eb->radius_, player_->worldTransform.translation_, player_->GetRadius())) {
+			if (IsCircleCollision(eb->worldTransform.translation_, eb->GetRadius(), player_->worldTransform.translation_, player_->GetRadius())) {
 				eb->OnCollision();
 				player_->OnCollision(); // HP制 or 即死 
 			} } 

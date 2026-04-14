@@ -7,6 +7,26 @@ using namespace KamataEngine;
 /// </summary>
 class EnemyBullet {
 
+private:
+	Model* model_ = nullptr;
+
+	// カメラ
+	Camera* camera_;
+
+	// 速度
+	Vector3 velocity_;
+
+	// 寿命
+	static const int32_t kLifeTime = 250;
+
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+
+	// デスフラグ
+	bool isDead_ = false;
+
+	float radius_ = 1.0f;
+
 public:
 	/// <summary>
 	/// 初期化
@@ -27,14 +47,13 @@ public:
 	void Draw();
 
 	// 速度
-	Vector3 velocity_;
-
-	// 寿命
-	static const int32_t kLifeTime = 250;
+	Vector3 GetVelocity() const { return velocity_; }
+	
 	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
+	int32_t GetDeathTimer() const { return deathTimer_; }
+	
 	// デスフラグ
-	bool isDead_ = false;
+	bool GetIsDead() const { return isDead_; }
 
 	/// <summary>
 	/// 弾の死亡判定
@@ -47,14 +66,9 @@ public:
 	/// </summary>
 	void OnCollision();
 
-	float radius_ = 1.0f;
+	float GetRadius() const { return radius_; }
 
 	WorldTransform worldTransform;
-private:
 
-	Model* model_ = nullptr;
-
-	// カメラ
-	Camera* camera_;
 
 };

@@ -11,7 +11,20 @@ class Player;
 /// 敵の動きを司るクラス
 /// </summary>
 class Enemy {
+private:
+	Model* model_ = nullptr;
 
+	// カメラ
+	Camera* camera_;
+
+	// 発射タイマー
+	int32_t fireTimer_ = 0;
+
+	EnemyBullet* enemyBullet_ = nullptr;
+	std::list<EnemyBullet*> enemyBullets_;
+
+	// 発射間隔
+	static const int kFireInterval = 30;
 
 public:
 
@@ -35,11 +48,13 @@ public:
 	/// 弾の発射
 	/// </summary>
 	void Fire();
-	EnemyBullet* enemyBullet_ = nullptr;
-	std::list<EnemyBullet*> enemyBullets_;
 
-	// 発射間隔
-	static const int kFireInterval = 30;
+	EnemyBullet* GetEnemyBullet() const { return enemyBullet_; }
+	std::list<EnemyBullet*> GetEnemyBullets() const { return enemyBullets_; }
+
+	
+
+	
 
 	/// <summary>
 	/// 更新
@@ -100,14 +115,6 @@ public:
 	}
 
 	WorldTransform worldTransform;
-private:
 
-	Model* model_ = nullptr;
-
-	// カメラ
-	Camera* camera_;
-
-	// 発射タイマー
-	int32_t fireTimer_ = 0;
 
 };
