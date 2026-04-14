@@ -28,17 +28,14 @@ public:
 	void Draw();
 
 	// キーボード入力
-	Input* input_ = nullptr;
+	Input* GetInput() const { return input_; }
 
 	// 速度
-	Vector3 velocity_;
-
-	// 寿命
-	static const int32_t kLifeTime = 60;
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-	// デスフラグ
-	bool isDead_ = false;
+	Vector3 GetVelocity() const { return velocity_; }
+	
+	
+	bool GetIsDead() const { return isDead_; }
+	int32_t GetDeathTimer() const { return deathTimer_; }
 
 	/// <summary>
 	/// 弾の死亡判定
@@ -51,11 +48,26 @@ public:
 	/// </summary>
 	void OnCollision();
 
-	
-	float radius_ = 1.0f;
+	float GetRadius() const { return radius_; }
 	// ワールド変換データ
 	WorldTransform worldTransform;
 private:
+
+	// キーボード入力
+	Input* input_ = nullptr;
+
+	// 速度
+	Vector3 velocity_;
+
+	// デスフラグ
+	bool isDead_ = false;
+	// デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+
+	// 寿命
+	static const int32_t kLifeTime = 60;
+
+	float radius_ = 1.0f;
 
 	// モデル
 	Model* model_ = nullptr;

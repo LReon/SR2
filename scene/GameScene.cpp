@@ -5,7 +5,6 @@ void GameScene::Initialize() {
 	camera_ = new Camera();
 	camera_->Initialize();
 	
-
 	worldTransform_.Initialize();
 
 	player_ = new Player();
@@ -20,7 +19,6 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("number.png");
 	model_ = Model::Create();
 
-
 }
 
 // 更新
@@ -29,10 +27,12 @@ void GameScene::Update() {
 	player_->Update();
 	if (enemy_->isDead_ == false) {
 		enemy_->Update();
+		PlayerBulletEnemyCollision();
+		
 	}
 	
 	skyDome_->Update();
-	PlayerBulletEnemyCollision();
+	
 	EnemyBulletPlayerCollision();
 }
 
@@ -67,7 +67,7 @@ void GameScene::PlayerBulletEnemyCollision() {
 	
 	for (PlayerBullet* pb : player_->GetBullets()) {
 		
-			if (IsCircleCollision(pb->worldTransform.translation_, pb->radius_, enemy_->worldTransform.translation_, enemy_->radius_)) {
+			if (IsCircleCollision(pb->worldTransform.translation_, pb->GetRadius(), enemy_->worldTransform.translation_, enemy_->radius_)) {
 				pb->OnCollision();
 				enemy_->OnCollision(); // HP制 or 即死
 				
@@ -83,7 +83,7 @@ void GameScene::EnemyBulletPlayerCollision() {
 
 	for (EnemyBullet* eb : enemy_->GetBullets()) {
 		
-			if (IsCircleCollision(eb->worldTransform.translation_, eb->radius_, player_->worldTransform.translation_, player_->getRadius())) {
+			if (IsCircleCollision(eb->worldTransform.translation_, eb->radius_, player_->worldTransform.translation_, player_->GetRadius())) {
 				eb->OnCollision();
 				player_->OnCollision(); // HP制 or 即死 
 			} } 

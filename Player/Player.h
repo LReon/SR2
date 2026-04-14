@@ -17,7 +17,14 @@ private:
 	// カメラ
 	Camera* camera_;
 
-	float radius_ = 1.0f;
+	float radius_ = 0;
+	
+
+	// キーボード入力
+	Input* input_ = nullptr;
+
+	PlayerBullet* playerBullet_ = nullptr;
+	std::list<PlayerBullet*> playerBullets_;
 
 public:
 	/// <summary>
@@ -30,8 +37,7 @@ public:
 	/// 攻撃
 	/// </summary>
 	void Attack();
-	PlayerBullet* playerBullet_ = nullptr;
-	std::list<PlayerBullet*> playerBullets_;
+	PlayerBullet* GetPlayerBullet() const { return playerBullet_; }
 
 	/// <summary>
 	/// 更新
@@ -43,8 +49,9 @@ public:
 	/// </summary>
 	void Draw();
 
-	// キーボード入力
-	Input* input_ = nullptr;
+	Input* GetInput() const { 
+		return input_; 
+	}
 
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック
@@ -62,7 +69,7 @@ public:
 	/// </summary>
 	~Player();
 	
-	float getRadius() const { 
+	float GetRadius() const { 
 		return radius_;
 	}
 
