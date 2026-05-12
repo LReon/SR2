@@ -76,6 +76,7 @@ void Player::Draw() {
 
 
 
+
 Player::~Player() {
 	// 弾の解放
 	delete playerBullet_; 
