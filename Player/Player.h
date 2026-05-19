@@ -26,6 +26,11 @@ private:
 	PlayerBullet* playerBullet_ = nullptr;
 	std::list<PlayerBullet*> playerBullets_;
 
+	// ワールド変換データ
+	WorldTransform worldTransform;
+
+	bool isDead_ = false;
+
 public:
 	/// <summary>
 	/// 初期化
@@ -77,13 +82,11 @@ public:
 		radius_ = radius;
 	}
 
-	bool isDead_ = false;
+	
 	bool IsDead() const { return isDead_; }
-	void OnCollision() {
-		isDead_ = true; // 必要ならアニメーションやSEなど 
-	}
+	void OnCollision();
+		
 
-	// ワールド変換データ
-	WorldTransform worldTransform;
+	Vector3 GetPosition() const { return worldTransform.translation_; }
 
 };

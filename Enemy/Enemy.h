@@ -26,6 +26,14 @@ private:
 	// 発射間隔
 	static const int kFireInterval = 30;
 
+	WorldTransform worldTransform;
+
+	int32_t hp = 100;
+
+	bool isDead_ = false;
+
+	float radius_ = 2.0f;
+
 public:
 
 	// 行動フェーズ
@@ -52,7 +60,7 @@ public:
 	EnemyBullet* GetEnemyBullet() const { return enemyBullet_; }
 	std::list<EnemyBullet*> GetEnemyBullets() const { return enemyBullets_; }
 
-	
+	Vector3 GetPosition() const { return worldTransform.translation_; }
 
 	
 
@@ -101,20 +109,17 @@ public:
 	// 弾リストを取得
 	const std::list<EnemyBullet*>& GetBullets() const { return enemyBullets_; }
 
-	float radius_ = 2.0f;
-	int32_t hp = 100;
+	
+	
+	float GetRadius() const { return radius_; }
 
-	bool isDead_ = false;
+	int32_t GetHp() const { return hp; }
+
+	
 	bool IsDead() const { return isDead_; }
-	void OnCollision() { 
-		hp -= 10;
-		if (hp <= 0) {
-			isDead_ = true;
-			
-		}
-	}
+	
 
-	WorldTransform worldTransform;
+	void OnCollision();
 
 
 };

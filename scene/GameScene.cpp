@@ -25,7 +25,7 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	
 	player_->Update();
-	if (enemy_->isDead_ == false) {
+	if (enemy_->IsDead() == false) {
 		enemy_->Update();
 		PlayerBulletEnemyCollision();
 		
@@ -46,7 +46,7 @@ void GameScene::Draw() {
 	Model::PreDraw(dxCommon->GetCommandList());
 	skyDome_->Draw();
 	player_->Draw();
-	if (enemy_->isDead_ == false) {
+	if (enemy_->IsDead() == false) {
 		enemy_->Draw();
 	}
 
@@ -67,7 +67,7 @@ void GameScene::PlayerBulletEnemyCollision() {
 	
 	for (PlayerBullet* pb : player_->GetBullets()) {
 		
-			if (IsCircleCollision(pb->worldTransform.translation_, pb->GetRadius(), enemy_->worldTransform.translation_, enemy_->radius_)) {
+			if (IsCircleCollision(pb->worldTransform.translation_, pb->GetRadius(), enemy_->GetPosition(), enemy_->GetRadius())) {
 				pb->OnCollision();
 				enemy_->OnCollision(); // HP制 or 即死
 				
@@ -83,7 +83,7 @@ void GameScene::EnemyBulletPlayerCollision() {
 
 	for (EnemyBullet* eb : enemy_->GetBullets()) {
 		
-			if (IsCircleCollision(eb->worldTransform.translation_, eb->GetRadius(), player_->worldTransform.translation_, player_->GetRadius())) {
+			if (IsCircleCollision(eb->worldTransform.translation_, eb->GetRadius(), player_->GetPosition(), player_->GetRadius())) {
 				eb->OnCollision();
 				player_->OnCollision(); // HP制 or 即死 
 			} } 

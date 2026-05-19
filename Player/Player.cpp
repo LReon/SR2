@@ -74,7 +74,9 @@ void Player::Draw() {
 	}
 }
 
-
+void Player::OnCollision() {
+	isDead_ = true; // 必要ならアニメーションやSEなど
+}
 
 
 Player::~Player() {

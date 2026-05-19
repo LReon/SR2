@@ -133,6 +133,13 @@ void Enemy::InfiniteMove() {
 
 }
 
+void Enemy::OnCollision() {
+	hp -= 10;
+	if (hp <= 0) {
+		isDead_ = true;
+	}
+}
+
 
 
 
