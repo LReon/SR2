@@ -1,11 +1,12 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
+#include "../Object/IObject.h"
 
 /// <summary>
 /// 敵の弾の動きを司るクラス
 /// </summary>
-class EnemyBullet {
+class EnemyBullet : IObject{
 
 private:
 	Model* model_ = nullptr;
@@ -39,12 +40,12 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update()override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw()override;
 
 	// 速度
 	Vector3 GetVelocity() const { return velocity_; }
@@ -64,7 +65,7 @@ public:
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック
 	/// </summary>
-	void OnCollision();
+	void OnCollision()override;
 
 	float GetRadius() const { return radius_; }
 

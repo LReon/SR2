@@ -2,6 +2,7 @@
 #include <KamataEngine.h>
 #include "EnemyBullet.h"
 #include "Player.h"
+#include "../Object/IObject.h"
 
 using namespace KamataEngine;
 
@@ -10,7 +11,7 @@ class Player;
 /// <summary>
 /// 敵の動きを司るクラス
 /// </summary>
-class Enemy {
+class Enemy : IObject{
 private:
 	Model* model_ = nullptr;
 
@@ -67,12 +68,12 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update()override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw()override;
 
 	/// <summary>
 	/// 円運動
@@ -119,7 +120,7 @@ public:
 	bool IsDead() const { return isDead_; }
 	
 
-	void OnCollision();
+	void OnCollision()override;
 
 
 };

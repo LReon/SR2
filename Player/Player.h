@@ -2,13 +2,13 @@
 
 #include <list>
 #include "PlayerBullet.h"
-
+#include "../Object/IObject.h"
 
 
 /// <summary>
 /// プレイヤーの動きを司るクラス
 /// </summary>
-class Player {
+class Player : IObject{
 
 private:
 	// モデル
@@ -47,12 +47,12 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw() override;
 
 	Input* GetInput() const { 
 		return input_; 
@@ -84,7 +84,7 @@ public:
 
 	
 	bool IsDead() const { return isDead_; }
-	void OnCollision();
+	void OnCollision() override;
 		
 
 	Vector3 GetPosition() const { return worldTransform.translation_; }

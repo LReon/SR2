@@ -197,6 +197,7 @@
   <ItemGroup>
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\EnemyBullet.h" />
+    <ClInclude Include="Object\IObject.h" />
     <ClInclude Include="Player\PlayerBullet.h" />
     <ClInclude Include="scene\ClearScene.h" />
     <ClInclude Include="scene\GameScene.h" />

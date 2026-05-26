@@ -2,10 +2,12 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
+#include "../Object/IObject.h"
+
 /// <summary>
 /// プレイヤーの弾の動きを司るクラス
 /// </summary>
-class PlayerBullet {
+class PlayerBullet : IObject{
 
 private:
 	// キーボード入力
@@ -44,12 +46,12 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw() override;
 
 	// キーボード入力
 	Input* GetInput() const { return input_; }
@@ -70,7 +72,7 @@ public:
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック
 	/// </summary>
-	void OnCollision();
+	void OnCollision() override;
 
 	float GetRadius() const { return radius_; }
 	// ワールド変換データ
