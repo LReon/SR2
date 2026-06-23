@@ -15,21 +15,7 @@ void Player::Initialize(Camera* camera) {
 	camera_ = camera;              
 }
 
-void Player::Attack() {
-
-	// スペースキーが押されたら弾を発射
-	if (input_->GetInstance()->TriggerKey(DIK_SPACE)) {
-		// 弾の速度
-		const float kBulletSpeed = 1.0f;
-		Vector3 velocity(kBulletSpeed, 0, 0);
-		
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(camera_,worldTransform.translation_,velocity);
-		playerBullets_.push_back(newBullet);
-	}
-}
-
-void Player::Update() {
+void Player::Move() {
 
 	// WASDキーで移動
 	if (input_->GetInstance()->PushKey(DIK_W)) {
@@ -45,8 +31,24 @@ void Player::Update() {
 		worldTransform.translation_.x += 1.0f;
 	}
 
-	// 攻撃処理
-	Attack();
+}
+
+
+void Player::Attack() {
+
+	// スペースキーが押されたら弾を発射
+	if (input_->GetInstance()->TriggerKey(DIK_SPACE)) {
+		// 弾の速度
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(kBulletSpeed, 0, 0);
+		
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(camera_,worldTransform.translation_,velocity);
+		playerBullets_.push_back(newBullet);
+	}
+}
+
+void Player::ManageBullets() {
 
 	// 弾の更新
 	for (PlayerBullet* bullet : playerBullets_) {
@@ -61,10 +63,22 @@ void Player::Update() {
 		}
 		return false;
 	});
+}
+
+void Player::Update() {
+
+	// 移動処理
+	Move(); 
+
+	// 攻撃処理
+	Attack();
+
+	ManageBullets();
 
 	// ワールド行列の更新
 	worldTransform.UpdateMatrix();
 }
+
 
 void Player::Draw() {
 	// プレイヤーの描画

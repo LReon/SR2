@@ -38,6 +38,16 @@ public:
 	void Initialize(Camera* camera, const Vector3& position, const Vector3& velocity);
 
 	/// <summary>
+	/// 移動
+	/// </summary>
+	void Move();
+
+	/// <summary>
+	/// 時間経過で消滅
+	/// </summary>
+	void LifeTime();
+
+	/// <summary>
 	/// 更新
 	/// </summary>
 	void Update()override;

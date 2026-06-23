@@ -10,13 +10,25 @@ void EnemyBullet::Initialize(Camera* camera, const Vector3& position, const Vect
 	camera_ = camera;
 }
 
-void EnemyBullet::Update() {
+void EnemyBullet::Move() {
 	// 速度に基づいて位置を更新
 	worldTransform.translation_.x += velocity_.x;
+}
+
+void EnemyBullet::LifeTime() {
 	// 時間経過でデス
-	if (--deathTimer_ <= -100) {
+	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
+}
+
+
+void EnemyBullet::Update() {
+	// 速度に基づいて位置を更新
+	Move();
+	// 時間経過でデス
+	LifeTime();
+
 	worldTransform.UpdateMatrix(); // ワールド行列の更新
 }
 

@@ -28,40 +28,38 @@ void Enemy::Fire() {
 	enemyBullets_.push_back(newBullet);
 }
 
-// 更新
-void Enemy::Update() { 
+void Enemy::ManagePhase() {
 
 	// 敵のフェーズ
-	switch (phase_) { 
-		case Enemy::Phase::Circle:
+	switch (phase_) {
+	case Enemy::Phase::Circle:
 		CircleMove();
 
 		break;
 
-		case Enemy::Phase::UpDown:
+	case Enemy::Phase::UpDown:
 		UpDownMove();
 
 		break;
 
-		case Enemy::Phase::Infinite:
+	case Enemy::Phase::Infinite:
 		InfiniteMove();
 
 		break;
-
 	}
 
 	// フェーズ切り替え用カウント
 	if (hp <= 70 && hp >= 40) {
 		phase_ = Phase::UpDown;
-	
-	}
-	else if (hp <= 30) {
+
+	} else if (hp <= 30) {
 		phase_ = Phase::Infinite;
-		
 	}
 
 
-	// 弾発射処理
+}
+
+void Enemy::ManageBullets() {
 	fireTimer_++;
 	if (fireTimer_ >= kFireInterval) {
 		Fire();
@@ -77,6 +75,16 @@ void Enemy::Update() {
 		}
 		return false;
 	});
+}
+
+// 更新
+void Enemy::Update() { 
+
+	// 行動フェーズ管理
+	ManagePhase();
+
+	// 弾発射処理
+	ManageBullets();
 
 	worldTransform.UpdateMatrix();
 }

@@ -63,6 +63,9 @@ public:
 
 	Vector3 GetPosition() const { return worldTransform.translation_; }
 
+	void ManagePhase();
+
+	void ManageBullets();
 	
 
 	/// <summary>

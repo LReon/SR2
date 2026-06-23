@@ -38,6 +38,10 @@ public:
 	/// <param name="camera">カメラをゲームシーンから受け取る </param>
 	void Initialize(Camera* camera);
 
+	/// <summary>	
+	/// 移動
+	/// </summary>
+	void Move();
 	/// <summary>
 	/// 攻撃
 	/// </summary>
@@ -45,9 +49,15 @@ public:
 	PlayerBullet* GetPlayerBullet() const { return playerBullet_; }
 
 	/// <summary>
+	/// 弾の管理
+	/// </summary>
+	void ManageBullets();
+
+	/// <summary>
 	/// 更新
 	/// </summary>
 	void Update() override;
+	
 
 	/// <summary>
 	/// 描画
