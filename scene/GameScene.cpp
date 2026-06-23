@@ -54,6 +54,7 @@ void GameScene::Draw() {
 	Model::PostDraw();
 }
 
+// 衝突判定
 bool GameScene::IsCircleCollision(const Vector3& posA, float radiusA, const Vector3& posB, float radiusB) { 
 	Vector3 diff = {posA.x - posB.x, posA.y - posB.y,posA.z - posB.z};
 
@@ -62,6 +63,8 @@ bool GameScene::IsCircleCollision(const Vector3& posA, float radiusA, const Vect
 	return distSq <= radiusSum * radiusSum;
 }
 
+
+// 衝突判定と応答(プレイヤーの弾と敵)
 void GameScene::PlayerBulletEnemyCollision() {
 
 	
@@ -74,11 +77,10 @@ void GameScene::PlayerBulletEnemyCollision() {
 				
 			}
 		}
-	
-
 
 }
 
+// 衝突判定と応答(敵の弾とプレイヤー)
 void GameScene::EnemyBulletPlayerCollision() {
 
 	for (EnemyBullet* eb : enemy_->GetBullets()) {

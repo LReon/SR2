@@ -1,5 +1,6 @@
 #include "EnemyBullet.h"
 
+// 初期化
 void EnemyBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity) {
 	model_ = Model::CreateFromOBJ("playerBullet", true);
 	velocity_ = velocity;
@@ -10,11 +11,13 @@ void EnemyBullet::Initialize(Camera* camera, const Vector3& position, const Vect
 	camera_ = camera;
 }
 
+// 移動
 void EnemyBullet::Move() {
 	// 速度に基づいて位置を更新
 	worldTransform.translation_.x += velocity_.x;
 }
 
+// 時間経過で消滅
 void EnemyBullet::LifeTime() {
 	// 時間経過でデス
 	if (--deathTimer_ <= 0) {
@@ -22,7 +25,7 @@ void EnemyBullet::LifeTime() {
 	}
 }
 
-
+// 更新
 void EnemyBullet::Update() {
 	// 速度に基づいて位置を更新
 	Move();
@@ -32,10 +35,12 @@ void EnemyBullet::Update() {
 	worldTransform.UpdateMatrix(); // ワールド行列の更新
 }
 
+// 描画
 void EnemyBullet::Draw() {
 	model_->Draw(worldTransform, *camera_); 
 }
 
+// 衝突を検出したら呼び出されるコールバック
 void EnemyBullet::OnCollision() {
 	isDead_ = true; 
 }

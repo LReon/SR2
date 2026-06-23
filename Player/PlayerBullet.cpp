@@ -1,6 +1,8 @@
 #include "PlayerBullet.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+
+// 初期化
 void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity) {
 	// 弾モデルの生成
 	model_ = Model::CreateFromOBJ("playerBullet",true);
@@ -18,12 +20,13 @@ void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vec
 	camera_ = camera;                       
 }
 
-
+// 移動
 void PlayerBullet::Move() {
 	// 速度に基づいて位置を更新
 	worldTransform.translation_.x += velocity_.x;
 }
 
+// 時間経過で消滅
 void PlayerBullet::LifeTime() {
 	// 時間経過でデス
 	if (--deathTimer_ <= 0) {
@@ -31,6 +34,7 @@ void PlayerBullet::LifeTime() {
 	}
 }
 
+// 更新
 void PlayerBullet::Update() { 
 	 // 速度に基づいて位置を更新
 	Move();
@@ -39,10 +43,12 @@ void PlayerBullet::Update() {
 	worldTransform.UpdateMatrix(); // ワールド行列の更新
 }
 
+// 描画
 void PlayerBullet::Draw() { 
 	model_->Draw(worldTransform, *camera_); // モデルの描画
 }
 
+// 衝突を検出したら呼び出されるコールバック
 void PlayerBullet::OnCollision() {
 	isDead_ = true; // 衝突時に弾を消す
 }

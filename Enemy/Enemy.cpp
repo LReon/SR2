@@ -18,6 +18,7 @@ void Enemy::Initialize(Camera* camera) {
 	
 }
 
+// 弾の発射
 void Enemy::Fire() {
 	// 弾の速度
 	const float kBulletSpeed = -2.0f;
@@ -28,6 +29,7 @@ void Enemy::Fire() {
 	enemyBullets_.push_back(newBullet);
 }
 
+// フェーズ管理
 void Enemy::ManagePhase() {
 
 	// 敵のフェーズ
@@ -59,6 +61,7 @@ void Enemy::ManagePhase() {
 
 }
 
+// 弾の管理
 void Enemy::ManageBullets() {
 	fireTimer_++;
 	if (fireTimer_ >= kFireInterval) {
@@ -141,6 +144,7 @@ void Enemy::InfiniteMove() {
 
 }
 
+// 衝突を検出したら呼び出されるコールバック
 void Enemy::OnCollision() {
 	hp -= 10;
 	if (hp <= 0) {

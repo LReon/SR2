@@ -58,13 +58,23 @@ public:
 	/// </summary>
 	void Fire();
 
+	
 	EnemyBullet* GetEnemyBullet() const { return enemyBullet_; }
 	std::list<EnemyBullet*> GetEnemyBullets() const { return enemyBullets_; }
 
+	/// <summary>
+	/// ゲッター
+	/// </summary>
 	Vector3 GetPosition() const { return worldTransform.translation_; }
 
+	/// <summary>
+	/// フェーズ管理
+	/// </summary>
 	void ManagePhase();
 
+	/// <summary>
+	/// 弾の管理
+	/// </summary>
 	void ManageBullets();
 	
 

@@ -64,13 +64,12 @@ public:
 	/// </summary>
 	void Draw() override;
 
+	/// <summary>
+	/// キーボード入力
+	/// </summary>
 	Input* GetInput() const { 
 		return input_; 
 	}
-
-	/// <summary>
-	/// 衝突を検出したら呼び出されるコールバック
-	/// </summary>
 	
 
 	/// <summary>

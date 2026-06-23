@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-
+// 初期化
 void Player::Initialize(Camera* camera) {
 	// プレイヤーモデルの生成
 	model_ = Model::CreateFromOBJ("player", true);
@@ -15,6 +15,7 @@ void Player::Initialize(Camera* camera) {
 	camera_ = camera;              
 }
 
+// 移動
 void Player::Move() {
 
 	// WASDキーで移動
@@ -33,7 +34,7 @@ void Player::Move() {
 
 }
 
-
+// 攻撃
 void Player::Attack() {
 
 	// スペースキーが押されたら弾を発射
@@ -48,6 +49,7 @@ void Player::Attack() {
 	}
 }
 
+// 弾の管理
 void Player::ManageBullets() {
 
 	// 弾の更新
@@ -65,6 +67,7 @@ void Player::ManageBullets() {
 	});
 }
 
+// 更新
 void Player::Update() {
 
 	// 移動処理
@@ -79,7 +82,7 @@ void Player::Update() {
 	worldTransform.UpdateMatrix();
 }
 
-
+// 描画
 void Player::Draw() {
 	// プレイヤーの描画
 	model_->Draw(worldTransform, *camera_); 
@@ -88,11 +91,12 @@ void Player::Draw() {
 	}
 }
 
+// 衝突を検出したら呼び出されるコールバック
 void Player::OnCollision() {
 	isDead_ = true; // 必要ならアニメーションやSEなど
 }
 
-
+// デストラクタ
 Player::~Player() {
 	// 弾の解放
 	delete playerBullet_; 
