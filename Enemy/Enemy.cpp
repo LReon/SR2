@@ -3,6 +3,7 @@
 #include <math.h>
 #include <iostream>
 #include <cmath>
+#include "../State/Enemy/CircleMoveState.h"
 
 // 初期化
 void Enemy::Initialize(Camera* camera) {
@@ -15,7 +16,8 @@ void Enemy::Initialize(Camera* camera) {
 	worldTransform.translation_.x = 20.0f;
 	worldTransform.UpdateMatrix();
 	camera_ = camera;
-	
+	// ★ 初期フェーズを設定（これが必須）
+	SetState(std::make_unique<CircleMoveState>());
 }
 
 // 弾の発射
@@ -32,31 +34,7 @@ void Enemy::Fire() {
 // フェーズ管理
 void Enemy::ManagePhase() {
 
-	// 敵のフェーズ
-	switch (phase_) {
-	case Enemy::Phase::Circle:
-		CircleMove();
-
-		break;
-
-	case Enemy::Phase::UpDown:
-		UpDownMove();
-
-		break;
-
-	case Enemy::Phase::Infinite:
-		InfiniteMove();
-
-		break;
-	}
-
-	// フェーズ切り替え用カウント
-	if (hp <= 70 && hp >= 40) {
-		phase_ = Phase::UpDown;
-
-	} else if (hp <= 30) {
-		phase_ = Phase::Infinite;
-	}
+	
 
 
 }
@@ -83,8 +61,9 @@ void Enemy::ManageBullets() {
 // 更新
 void Enemy::Update() { 
 
-	// 行動フェーズ管理
-	ManagePhase();
+	if (state_) {
+		state_->Update(*this);
+	}
 
 	// 弾発射処理
 	ManageBullets();

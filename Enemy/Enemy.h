@@ -3,6 +3,7 @@
 #include "EnemyBullet.h"
 #include "Player.h"
 #include "../Object/IObject.h"
+#include "../State/Enemy/State.h"
 
 using namespace KamataEngine;
 
@@ -35,17 +36,17 @@ private:
 
 	float radius_ = 2.0f;
 
+	// State Pattern
+	std::unique_ptr<IEnemyState> state_;
+
 public:
 
-	// 行動フェーズ
-	enum class Phase {
-		Circle,
-		UpDown,
-		Infinite
-	};
-
-	// 初期フェーズ
-	Phase phase_ = Phase::Circle;
+	void SetState(std::unique_ptr<IEnemyState> next) {
+		if (state_)
+			state_->Exit(*this);
+		state_ = std::move(next);
+		state_->Enter(*this);
+	}
 
 	/// <summary>
 	// 初期化

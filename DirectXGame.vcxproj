@@ -204,6 +204,10 @@
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="scene\TitleScene.h" />
     <ClInclude Include="SkyDome\SkyDome.h" />
+    <ClInclude Include="State\Enemy\CircleMoveState.h" />
+    <ClInclude Include="State\Enemy\InfiniteMoveState.h" />
+    <ClInclude Include="State\Enemy\State.h" />
+    <ClInclude Include="State\Enemy\UpDownMoveState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
