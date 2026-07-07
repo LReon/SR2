@@ -168,5 +168,8 @@
     <ClInclude Include="State\Enemy\InfiniteMoveState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Object\ObjectPool.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

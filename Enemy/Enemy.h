@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "../Object/IObject.h"
 #include "../State/Enemy/State.h"
+#include "../Object/ObjectPool.h"
 
 using namespace KamataEngine;
 
@@ -12,7 +13,7 @@ class Player;
 /// <summary>
 /// 敵の動きを司るクラス
 /// </summary>
-class Enemy : IObject{
+class Enemy : public IObject {
 private:
 	Model* model_ = nullptr;
 
@@ -24,6 +25,8 @@ private:
 
 	EnemyBullet* enemyBullet_ = nullptr;
 	std::list<EnemyBullet*> enemyBullets_;
+	// 弾プール
+	ObjectPool<EnemyBullet> bulletPool_{128};
 
 	// 発射間隔
 	static const int kFireInterval = 30;

@@ -6,7 +6,7 @@ using namespace KamataEngine;
 /// <summary>
 /// 敵の弾の動きを司るクラス
 /// </summary>
-class EnemyBullet : IObject{
+class EnemyBullet : public IObject{
 
 private:
 	Model* model_ = nullptr;
@@ -36,6 +36,9 @@ public:
 	/// <param name="position">弾の初期位置 </param>
 	/// <param name="velocity">弾の速度 </param>
 	void Initialize(Camera* camera, const Vector3& position, const Vector3& velocity);
+
+	// プールから再利用される際に呼ぶリセット
+	void Reset();
 
 	/// <summary>
 	/// 移動

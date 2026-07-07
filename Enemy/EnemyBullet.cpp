@@ -2,13 +2,18 @@
 
 // 初期化
 void EnemyBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity) {
-	model_ = Model::CreateFromOBJ("playerBullet", true);
+	// モデルは既に生成済みかもしれないので重複生成を避ける
+	if (!model_) model_ = Model::CreateFromOBJ("playerBullet", true);
 	velocity_ = velocity;
 	worldTransform.Initialize();
 	worldTransform.translation_ = position;
 	worldTransform.rotation_.y = 3.141592654f; // 弾を180度回転させる
 	worldTransform.UpdateMatrix();
 	camera_ = camera;
+
+	// 再利用時の状態をリセット
+	isDead_ = false;
+	deathTimer_ = kLifeTime;
 }
 
 // 移動
@@ -43,6 +48,12 @@ void EnemyBullet::Draw() {
 // 衝突を検出したら呼び出されるコールバック
 void EnemyBullet::OnCollision() {
 	isDead_ = true; 
+}
+
+void EnemyBullet::Reset() {
+	isDead_ = false;
+	deathTimer_ = kLifeTime;
+	// worldTransform は Initialize で設定されるためここでは触らない
 }
 
 

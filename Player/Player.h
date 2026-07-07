@@ -3,6 +3,7 @@
 #include <list>
 #include "PlayerBullet.h"
 #include "../Object/IObject.h"
+#include "../Object/ObjectPool.h"
 
 
 /// <summary>
@@ -25,6 +26,8 @@ private:
 
 	PlayerBullet* playerBullet_ = nullptr;
 	std::list<PlayerBullet*> playerBullets_;
+	// 弾プール
+	ObjectPool<PlayerBullet> bulletPool_{128};
 
 	// ワールド変換データ
 	WorldTransform worldTransform;

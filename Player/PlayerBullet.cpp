@@ -4,8 +4,8 @@
 
 // 初期化
 void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity) {
-	// 弾モデルの生成
-	model_ = Model::CreateFromOBJ("playerBullet",true);
+	// モデルは重複生成を避ける
+	if (!model_) model_ = Model::CreateFromOBJ("playerBullet", true);
 	// 入力の取得
 	input_ = Input::GetInstance();
 	// ワールド変換の初期化
@@ -18,6 +18,10 @@ void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vec
 	worldTransform.UpdateMatrix(); 
 	// カメラの設定
 	camera_ = camera;                       
+
+	// 再利用時の状態リセット
+	isDead_ = false;
+	deathTimer_ = kLifeTime;
 }
 
 // 移動
@@ -51,5 +55,10 @@ void PlayerBullet::Draw() {
 // 衝突を検出したら呼び出されるコールバック
 void PlayerBullet::OnCollision() {
 	isDead_ = true; // 衝突時に弾を消す
+}
+
+void PlayerBullet::Reset() {
+	isDead_ = false;
+	deathTimer_ = kLifeTime;
 }
 

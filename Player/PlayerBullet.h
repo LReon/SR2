@@ -7,7 +7,7 @@ using namespace KamataEngine;
 /// <summary>
 /// プレイヤーの弾の動きを司るクラス
 /// </summary>
-class PlayerBullet : IObject{
+class PlayerBullet : public IObject{
 
 private:
 	// キーボード入力
@@ -42,6 +42,9 @@ public:
 	/// <param name="position">初期位置</param>
 	/// <param name="velocity">速度</param>
 	void Initialize(Camera* camera,const Vector3& position,const Vector3& velocity);
+
+	// プールからの再利用時に呼ぶ
+	void Reset();
 
 
 	/// <summary>

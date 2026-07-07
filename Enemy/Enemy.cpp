@@ -26,9 +26,12 @@ void Enemy::Fire() {
 	const float kBulletSpeed = -2.0f;
 	Vector3 velocity(kBulletSpeed, 0, 0);
 
-	EnemyBullet* newBullet = new EnemyBullet();
-	newBullet->Initialize(camera_, worldTransform.translation_, velocity);
-	enemyBullets_.push_back(newBullet);
+	// プールから弾を取得して初期化
+	EnemyBullet* newBullet = bulletPool_.Allocate();
+	if (newBullet) {
+		newBullet->Initialize(camera_, worldTransform.translation_, velocity);
+		enemyBullets_.push_back(newBullet);
+	}
 }
 
 // フェーズ管理
@@ -49,9 +52,11 @@ void Enemy::ManageBullets() {
 	for (EnemyBullet* bullet : enemyBullets_) {
 		bullet->Update();
 	}
-	enemyBullets_.remove_if([](EnemyBullet* bullet) {
+	// 死んだ弾はプールへ返却
+	enemyBullets_.remove_if([this](EnemyBullet* bullet) {
 		if (bullet->IsDead()) {
-			delete bullet;
+			bullet->Reset();
+			this->bulletPool_.Release(bullet);
 			return true;
 		}
 		return false;

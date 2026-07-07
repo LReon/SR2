@@ -42,10 +42,13 @@ void Player::Attack() {
 		// 弾の速度
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(kBulletSpeed, 0, 0);
-		
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(camera_,worldTransform.translation_,velocity);
-		playerBullets_.push_back(newBullet);
+
+		// プールから弾を取得して初期化
+		PlayerBullet* newBullet = bulletPool_.Allocate();
+		if (newBullet) {
+			newBullet->Initialize(camera_, worldTransform.translation_, velocity);
+			playerBullets_.push_back(newBullet);
+		}
 	}
 }
 
@@ -57,10 +60,11 @@ void Player::ManageBullets() {
 		bullet->Update();
 	}
 
-	// 死んだ弾の削除
-	playerBullets_.remove_if([](PlayerBullet* bullet) {
+	// 死んだ弾はプールへ返却
+	playerBullets_.remove_if([this](PlayerBullet* bullet) {
 		if (bullet->IsDead()) {
-			delete bullet;
+			bullet->Reset();
+			this->bulletPool_.Release(bullet);
 			return true;
 		}
 		return false;
@@ -98,8 +102,12 @@ void Player::OnCollision() {
 
 // デストラクタ
 Player::~Player() {
-	// 弾の解放
-	delete playerBullet_; 
+	// プールを使うため明示的な delete は不要。もし残弾があればプールへ返却する
+	for (PlayerBullet* b : playerBullets_) {
+		b->Reset();
+		bulletPool_.Release(b);
+	}
+	playerBullets_.clear();
 }
 
 
