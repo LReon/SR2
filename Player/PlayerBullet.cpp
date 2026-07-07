@@ -3,9 +3,11 @@
 #include <math.h>
 
 // 初期化
-void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity) {
+void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vector3& velocity, int life, const std::string& modelName) {
+	// モデル名を保存
+	modelName_ = modelName;
 	// モデルは重複生成を避ける
-	if (!model_) model_ = Model::CreateFromOBJ("playerBullet", true);
+	if (!model_) model_ = Model::CreateFromOBJ(modelName_.c_str(), true);
 	// 入力の取得
 	input_ = Input::GetInstance();
 	// ワールド変換の初期化
@@ -21,7 +23,7 @@ void PlayerBullet::Initialize(Camera* camera, const Vector3& position, const Vec
 
 	// 再利用時の状態リセット
 	isDead_ = false;
-	deathTimer_ = kLifeTime;
+	deathTimer_ = life;
 }
 
 // 移動

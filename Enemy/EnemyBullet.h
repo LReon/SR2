@@ -1,6 +1,7 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
+#include <string>
 #include "../Object/IObject.h"
 
 /// <summary>
@@ -35,10 +36,14 @@ public:
 	/// <param name="camera">カメラをゲームシーンから受け取る </param>
 	/// <param name="position">弾の初期位置 </param>
 	/// <param name="velocity">弾の速度 </param>
-	void Initialize(Camera* camera, const Vector3& position, const Vector3& velocity);
+	// modelName: リソース名（例: "enemyBullet"）
+	void Initialize(Camera* camera, const Vector3& position, const Vector3& velocity, int life = kLifeTime, const std::string& modelName = "playerBullet");
 
 	// プールから再利用される際に呼ぶリセット
 	void Reset();
+
+	void SetRadius(float r) { radius_ = r; }
+	void SetModelName(const std::string& name) { modelName_ = name; }
 
 	/// <summary>
 	/// 移動
@@ -83,6 +88,7 @@ public:
 	float GetRadius() const { return radius_; }
 
 	WorldTransform worldTransform;
+	std::string modelName_ = "playerBullet";
 
 
 };

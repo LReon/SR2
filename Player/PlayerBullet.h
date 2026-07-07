@@ -41,10 +41,13 @@ public:
 	/// <param name="camera">ゲームシーンからカメラを受け取る</param>
 	/// <param name="position">初期位置</param>
 	/// <param name="velocity">速度</param>
-	void Initialize(Camera* camera,const Vector3& position,const Vector3& velocity);
+	void Initialize(Camera* camera,const Vector3& position,const Vector3& velocity, int life = kLifeTime, const std::string& modelName = "playerBullet");
 
 	// プールからの再利用時に呼ぶ
 	void Reset();
+
+	void SetRadius(float r) { radius_ = r; }
+	void SetModelName(const std::string& name) { modelName_ = name; }
 
 
 	/// <summary>
@@ -91,5 +94,6 @@ public:
 	float GetRadius() const { return radius_; }
 	// ワールド変換データ
 	WorldTransform worldTransform;
+	std::string modelName_ = "playerBullet";
 
 };

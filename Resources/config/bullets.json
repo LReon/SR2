@@ -1,0 +1,14 @@
+{
+  "enemy_small": {
+    "model": "enemyBullet",
+    "speed": -2.0,
+    "life": 250,
+    "radius": 1.0
+  },
+  "player_small": {
+    "model": "playerBullet",
+    "speed": 1.0,
+    "life": 60,
+    "radius": 1.0
+  }
+}

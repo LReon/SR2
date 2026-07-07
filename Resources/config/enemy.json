@@ -1,0 +1,15 @@
+{
+  "model": "enemy",
+  "hp": 100,
+  "fireInterval": 30,
+  "radius": 2.0,
+  "movementKind": "circle",
+  "centerX": 20.0,
+  "centerY": 0.0,
+  "moveRadius": 10.0,
+  "angleStep": 0.05,
+  "amplitude": 10.0,
+  "frequency": 0.5,
+  "a": 15.0,
+  "bulletType": "enemy_small"
+}

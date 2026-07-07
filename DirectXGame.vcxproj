@@ -108,6 +108,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Config\ConfigLoader.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Enemy\EnemyBullet.cpp" />
     <ClCompile Include="Player\PlayerBullet.cpp" />
@@ -132,6 +133,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <None Include="Resources\config\bullets.json" />
+    <None Include="Resources\config\enemy.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
     <None Include="Resources\shaders\Primitive.hlsli" />
     <None Include="Resources\shaders\Shape.hlsli">
@@ -195,6 +198,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config\ConfigLoader.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\EnemyBullet.h" />
     <ClInclude Include="Object\IObject.h" />

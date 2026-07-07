@@ -1,4 +1,6 @@
 #include "Player.h"
+#include <unordered_map>
+#include "../Config/ConfigLoader.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -13,6 +15,14 @@ void Player::Initialize(Camera* camera) {
 	worldTransform.Initialize();
 	// カメラの設定
 	camera_ = camera;              
+
+	// プレイヤー弾の設定を読み込む（データ駆動）
+	std::unordered_map<std::string, BulletConfig> bullets;
+	ConfigLoader::LoadBulletsConfig("Resources/config/bullets.json", bullets);
+	auto it = bullets.find("player_small");
+	if (it != bullets.end()) {
+		playerBulletConfig_ = it->second;
+	}
 }
 
 // 移動
@@ -40,13 +50,13 @@ void Player::Attack() {
 	// スペースキーが押されたら弾を発射
 	if (input_->GetInstance()->TriggerKey(DIK_SPACE)) {
 		// 弾の速度
-		const float kBulletSpeed = 1.0f;
-		Vector3 velocity(kBulletSpeed, 0, 0);
+		Vector3 velocity(playerBulletConfig_.speed, 0, 0);
 
 		// プールから弾を取得して初期化
 		PlayerBullet* newBullet = bulletPool_.Allocate();
 		if (newBullet) {
-			newBullet->Initialize(camera_, worldTransform.translation_, velocity);
+			newBullet->Initialize(camera_, worldTransform.translation_, velocity, playerBulletConfig_.life, playerBulletConfig_.model);
+			newBullet->SetRadius(playerBulletConfig_.radius);
 			playerBullets_.push_back(newBullet);
 		}
 	}

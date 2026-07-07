@@ -78,6 +78,9 @@
     <ClCompile Include="scene\ClearScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Config\ConfigLoader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -127,6 +130,8 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+    <None Include="Resources\config\enemy.json" />
+    <None Include="Resources\config\bullets.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player\Player.h">
@@ -169,6 +174,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Object\ObjectPool.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Config\ConfigLoader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

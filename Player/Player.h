@@ -4,12 +4,13 @@
 #include "PlayerBullet.h"
 #include "../Object/IObject.h"
 #include "../Object/ObjectPool.h"
+#include "../Config/ConfigLoader.h"
 
 
 /// <summary>
 /// プレイヤーの動きを司るクラス
 /// </summary>
-class Player : IObject{
+class Player : public IObject{
 
 private:
 	// モデル
@@ -28,6 +29,9 @@ private:
 	std::list<PlayerBullet*> playerBullets_;
 	// 弾プール
 	ObjectPool<PlayerBullet> bulletPool_{128};
+
+	// プレイヤー弾設定（データ駆動）
+	BulletConfig playerBulletConfig_;
 
 	// ワールド変換データ
 	WorldTransform worldTransform;
