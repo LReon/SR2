@@ -1,6 +1,6 @@
 #include "Player.h"
 #include <unordered_map>
-#include "../Config/ConfigLoader.h"
+#include "Config/ConfigLoader.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 

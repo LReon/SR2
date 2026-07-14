@@ -1,10 +1,10 @@
 #pragma once
 #include <KamataEngine.h>
 #include "EnemyBullet.h"
-#include "Player.h"
-#include "../Object/IObject.h"
-#include "../State/Enemy/State.h"
-#include "../Object/ObjectPool.h"
+#include "Player/Player.h"
+#include "Object/IObject.h"
+#include "State/Enemy/State.h"
+#include "Object/ObjectPool.h"
 
 using namespace KamataEngine;
 
