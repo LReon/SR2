@@ -5,6 +5,7 @@ using namespace KamataEngine;
 #include "IObject.h"
 
 class BulletBase : public IObject {
+
 protected:
 	// モデル
 	Model* model_ = nullptr;
