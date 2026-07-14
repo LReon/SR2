@@ -11,7 +11,6 @@
 using namespace KamataEngine;
 
 class Player;
-　
 /// <summary>
 /// 敵の動きを司るクラス
 /// </summary>
