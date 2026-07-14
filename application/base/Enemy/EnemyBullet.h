@@ -2,32 +2,16 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 #include <string>
-#include "../Object/IObject.h"
+#include "../Object/Bullet.h"
 
 /// <summary>
 /// 敵の弾の動きを司るクラス
 /// </summary>
-class EnemyBullet : public IObject{
+class EnemyBullet : public BulletBase{
 
 private:
-	Model* model_ = nullptr;
-
-	// カメラ
-	Camera* camera_;
-
-	// 速度
-	Vector3 velocity_;
-
-	// 寿命
+	// 寿命（クラス固有）
 	static const int32_t kLifeTime = 250;
-
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-
-	// デスフラグ
-	bool isDead_ = false;
-
-	float radius_ = 1.0f;
 
 public:
 	/// <summary>
@@ -42,53 +26,15 @@ public:
 	// プールから再利用される際に呼ぶリセット
 	void Reset();
 
-	void SetRadius(float r) { radius_ = r; }
-	void SetModelName(const std::string& name) { modelName_ = name; }
+	void SetRadius(float r) { BulletBase::SetRadius(r); }
+	void SetModelName(const std::string& name) { BulletBase::SetModelName(name); }
 
-	/// <summary>
-	/// 移動
-	/// </summary>
-	void Move();
-
-	/// <summary>
-	/// 時間経過で消滅
-	/// </summary>
-	void LifeTime();
-
-	/// <summary>
-	/// 更新
-	/// </summary>
-	void Update()override;
-
-	/// <summary>
-	/// 描画
-	/// </summary>
-	void Draw()override;
-
-	// 速度
-	Vector3 GetVelocity() const { return velocity_; }
-	
-	// デスタイマー
-	int32_t GetDeathTimer() const { return deathTimer_; }
-	
-	// デスフラグ
-	bool GetIsDead() const { return isDead_; }
-
-	/// <summary>
-	/// 弾の死亡判定
-	/// </summary>
-	/// <returns>死んだらtrueを返す</returns>
-	bool IsDead() const { return isDead_; }
-
-	/// <summary>
-	/// 衝突を検出したら呼び出されるコールバック
-	/// </summary>
-	void OnCollision()override;
-
-	float GetRadius() const { return radius_; }
-
-	WorldTransform worldTransform;
-	std::string modelName_ = "playerBullet";
+	// ゲッター
+	Vector3 GetVelocity() const { return BulletBase::GetVelocity(); }
+	int32_t GetDeathTimer() const { return BulletBase::GetDeathTimer(); }
+	bool GetIsDead() const { return BulletBase::GetIsDead(); }
+	bool IsDead() const { return BulletBase::GetIsDead(); }
+	float GetRadius() const { return BulletBase::GetRadius(); }
 
 
 };

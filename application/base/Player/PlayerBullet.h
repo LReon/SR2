@@ -2,36 +2,19 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
-#include "../Object/IObject.h"
+#include "../Object/Bullet.h"
 
 /// <summary>
 /// プレイヤーの弾の動きを司るクラス
 /// </summary>
-class PlayerBullet : public IObject{
+class PlayerBullet : public BulletBase{
 
 private:
 	// キーボード入力
 	Input* input_ = nullptr;
 
-	// 速度
-	Vector3 velocity_;
-
-	// デスフラグ
-	bool isDead_ = false;
-	// デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-
-	// 寿命
+	// 寿命（クラス固有）
 	static const int32_t kLifeTime = 60;
-
-	float radius_ = 1.0f;
-
-	// モデル
-	Model* model_ = nullptr;
-
-	// カメラ
-	Camera* camera_;
-
 
 public:
 	
@@ -46,54 +29,18 @@ public:
 	// プールからの再利用時に呼ぶ
 	void Reset();
 
-	void SetRadius(float r) { radius_ = r; }
-	void SetModelName(const std::string& name) { modelName_ = name; }
-
-
-	/// <summary>
-	/// 移動
-	/// </summary>
-	void Move();
-
-	/// <summary>
-	/// 時間経過で消滅
-	/// </summary>
-	void LifeTime();
-
-	/// <summary>
-	/// 更新
-	/// </summary>
-	void Update() override;
-
-	/// <summary>
-	/// 描画
-	/// </summary>
-	void Draw() override;
+	// 公開API
+	void SetRadius(float r) { BulletBase::SetRadius(r); }
+	void SetModelName(const std::string& name) { BulletBase::SetModelName(name); }
 
 	// キーボード入力
 	Input* GetInput() const { return input_; }
 
-	// 速度
-	Vector3 GetVelocity() const { return velocity_; }
-	
-	
-	bool GetIsDead() const { return isDead_; }
-	int32_t GetDeathTimer() const { return deathTimer_; }
-
-	/// <summary>
-	/// 弾の死亡判定
-	/// </summary>
-	/// <returns>弾が死んだらtrueを返す</returns>
-	bool IsDead() const { return isDead_; }
-
-	/// <summary>
-	/// 衝突を検出したら呼び出されるコールバック
-	/// </summary>
-	void OnCollision() override;
-
-	float GetRadius() const { return radius_; }
-	// ワールド変換データ
-	WorldTransform worldTransform;
-	std::string modelName_ = "playerBullet";
+	// ゲッター（基底のメンバーを利用）
+	Vector3 GetVelocity() const { return BulletBase::GetVelocity(); }
+	bool GetIsDead() const { return BulletBase::GetIsDead(); }
+	int32_t GetDeathTimer() const { return BulletBase::GetDeathTimer(); }
+	bool IsDead() const { return BulletBase::GetIsDead(); }
+	float GetRadius() const { return BulletBase::GetRadius(); }
 
 };

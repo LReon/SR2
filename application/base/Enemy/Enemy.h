@@ -6,11 +6,12 @@
 #include "../Object/IObject.h"
 #include "../State/Enemy/State.h"
 #include "../Object/ObjectPool.h"
+#include "../Object/BulletManager.h"
 
 using namespace KamataEngine;
 
 class Player;
-
+　
 /// <summary>
 /// 敵の動きを司るクラス
 /// </summary>
@@ -25,9 +26,10 @@ private:
 	int32_t fireTimer_ = 0;
 
 	EnemyBullet* enemyBullet_ = nullptr;
-	std::list<EnemyBullet*> enemyBullets_;
 	// 弾プール
 	ObjectPool<EnemyBullet> bulletPool_{128};
+	// 弾マネージャ
+	BulletManager<EnemyBullet> bulletManager_{bulletPool_};
 
 	// 発射間隔
 	int fireInterval_ = GameConfig::enemyFireInterval;
@@ -65,7 +67,7 @@ public:
 
 	
 	EnemyBullet* GetEnemyBullet() const { return enemyBullet_; }
-	std::list<EnemyBullet*> GetEnemyBullets() const { return enemyBullets_; }
+	const std::list<EnemyBullet*>& GetEnemyBullets() const { return bulletManager_.GetActive(); }
 
 	/// <summary>
 	/// ゲッター
@@ -126,7 +128,7 @@ public:
 	/// </summary>
 	
 	// 弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { return enemyBullets_; }
+	const std::list<EnemyBullet*>& GetBullets() const { return bulletManager_.GetActive(); }
 
 	
 	

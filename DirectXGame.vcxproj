@@ -108,6 +108,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="application\base\Object\Bullet.cpp" />
     <ClCompile Include="application\ect\Config\ConfigLoader.cpp" />
     <ClCompile Include="application\base\Enemy\Enemy.cpp" />
     <ClCompile Include="application\base\Enemy\EnemyBullet.cpp" />
@@ -200,6 +201,8 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application\base\Object\Bullet.h" />
+    <ClInclude Include="application\base\Object\BulletManager.h" />
     <ClInclude Include="application\ect\Config\ConfigLoader.h" />
     <ClInclude Include="application\base\Enemy\Enemy.h" />
     <ClInclude Include="application\base\Enemy\EnemyBullet.h" />

@@ -27,11 +27,11 @@ void Enemy::Fire() {
 	const float kBulletSpeed = GameConfig::enemyBulletSpeed;
 	Vector3 velocity(kBulletSpeed, 0, 0);
 
-	// プールから弾を取得して初期化
-	EnemyBullet* newBullet = bulletPool_.Allocate();
+	// プールから確保して初期化
+	EnemyBullet* newBullet = bulletManager_.AllocateOne();
 	if (newBullet) {
 		newBullet->Initialize(camera_, worldTransform.translation_, velocity);
-		enemyBullets_.push_back(newBullet);
+		newBullet->SetRadius(1.0f);
 	}
 }
 
@@ -50,18 +50,8 @@ void Enemy::ManageBullets() {
 		Fire();
 		fireTimer_ = 0;
 	}
-	for (EnemyBullet* bullet : enemyBullets_) {
-		bullet->Update();
-	}
-	// 死んだ弾はプールへ返却
-	enemyBullets_.remove_if([this](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			bullet->Reset();
-			this->bulletPool_.Release(bullet);
-			return true;
-		}
-		return false;
-	});
+	// BulletManager による一括更新と回収
+	bulletManager_.UpdateAll();
 }
 
 // 更新
@@ -79,9 +69,7 @@ void Enemy::Update() {
 
 // 描画
 void Enemy::Draw() {
-	for (EnemyBullet* bullet : enemyBullets_) {
-		bullet->Draw();
-	}
+	bulletManager_.DrawAll();
 	model_->Draw(worldTransform, *camera_);
 }
 

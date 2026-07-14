@@ -53,12 +53,11 @@ void Player::Attack() {
 		// 弾の速度
 		Vector3 velocity(playerBulletConfig_.speed, 0, 0);
 
-		// プールから弾を取得して初期化
-		PlayerBullet* newBullet = bulletPool_.Allocate();
+		// プールから確保して初期化
+		PlayerBullet* newBullet = bulletManager_.AllocateOne();
 		if (newBullet) {
 			newBullet->Initialize(camera_, worldTransform.translation_, velocity, playerBulletConfig_.life, playerBulletConfig_.model);
 			newBullet->SetRadius(playerBulletConfig_.radius);
-			playerBullets_.push_back(newBullet);
 		}
 	}
 }
@@ -66,20 +65,8 @@ void Player::Attack() {
 // 弾の管理
 void Player::ManageBullets() {
 
-	// 弾の更新
-	for (PlayerBullet* bullet : playerBullets_) {
-		bullet->Update();
-	}
-
-	// 死んだ弾はプールへ返却
-	playerBullets_.remove_if([this](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			bullet->Reset();
-			this->bulletPool_.Release(bullet);
-			return true;
-		}
-		return false;
-	});
+	// BulletManager による一括更新と回収
+	bulletManager_.UpdateAll();
 }
 
 // 更新
@@ -101,9 +88,7 @@ void Player::Update() {
 void Player::Draw() {
 	// プレイヤーの描画
 	model_->Draw(worldTransform, *camera_); 
-	for (PlayerBullet* bullet : playerBullets_) {
-		bullet->Draw();
-	}
+	bulletManager_.DrawAll();
 }
 
 // 衝突を検出したら呼び出されるコールバック
@@ -114,11 +99,10 @@ void Player::OnCollision() {
 // デストラクタ
 Player::~Player() {
 	// プールを使うため明示的な delete は不要。もし残弾があればプールへ返却する
-	for (PlayerBullet* b : playerBullets_) {
+	for (PlayerBullet* b : bulletManager_.GetActive()) {
 		b->Reset();
 		bulletPool_.Release(b);
 	}
-	playerBullets_.clear();
 }
 
 

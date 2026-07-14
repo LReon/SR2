@@ -4,6 +4,7 @@
 #include "PlayerBullet.h"
 #include "../Object/IObject.h"
 #include "../Object/ObjectPool.h"
+#include "../Object/BulletManager.h"
 #include "../../ect/Config/ConfigLoader.h"
 
 
@@ -27,9 +28,10 @@ private:
 	Input* input_ = nullptr;
 
 	PlayerBullet* playerBullet_ = nullptr;
-	std::list<PlayerBullet*> playerBullets_;
 	// 弾プール
 	ObjectPool<PlayerBullet> bulletPool_{128};
+	// 弾マネージャ
+	BulletManager<PlayerBullet> bulletManager_{bulletPool_};
 
 	// プレイヤー弾設定（データ駆動）
 	BulletConfig playerBulletConfig_;
@@ -84,7 +86,7 @@ public:
 	/// 弾のリストを取得
 	/// </summary>
 	/// <returns>弾のリスト</returns>
-	const std::list<PlayerBullet*>& GetBullets() const { return playerBullets_; }
+	const std::list<PlayerBullet*>& GetBullets() const { return bulletManager_.GetActive(); }
 
 	/// <summary>
 	/// デストラクタ
