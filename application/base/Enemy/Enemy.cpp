@@ -4,10 +4,11 @@
 #include <iostream>
 #include <cmath>
 #include "../State/Enemy/CircleMoveState.h"
+#include "../../ect/Config/GameConfig.h"
 
 // 初期化
 void Enemy::Initialize(Camera* camera) {
-	model_ = Model::CreateFromOBJ("enemy", true);
+	model_ = Model::CreateFromOBJ(GameConfig::enemyModelName.c_str(), true);
 	
 	worldTransform.Initialize();
 	worldTransform.scale_.x += 2.0f;
@@ -23,7 +24,7 @@ void Enemy::Initialize(Camera* camera) {
 // 弾の発射
 void Enemy::Fire() {
 	// 弾の速度
-	const float kBulletSpeed = -2.0f;
+	const float kBulletSpeed = GameConfig::enemyBulletSpeed;
 	Vector3 velocity(kBulletSpeed, 0, 0);
 
 	// プールから弾を取得して初期化
@@ -45,7 +46,7 @@ void Enemy::ManagePhase() {
 // 弾の管理
 void Enemy::ManageBullets() {
 	fireTimer_++;
-	if (fireTimer_ >= kFireInterval) {
+	if (fireTimer_ >= fireInterval_) {
 		Fire();
 		fireTimer_ = 0;
 	}

@@ -1,6 +1,6 @@
 #pragma once
-#include "../State/Enemy/State.h"
-#include "../State/Enemy/InfiniteMoveState.h"
+#include "State.h"
+#include "InfiniteMoveState.h"
 
 class UpDownMoveState : public IEnemyState {
 public:

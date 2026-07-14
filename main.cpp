@@ -1,7 +1,8 @@
 #include <Windows.h>
 #include "KamataEngine.h"
-#include "GameScene.h"
-#include "TitleScene.h"
+#include "application/base/scene/GameScene.h"
+#include "application/base/scene/TitleScene.h"
+#include "application/ect/Config/GameConfig.h"
 
 using namespace KamataEngine;
 
@@ -71,8 +72,10 @@ void DrawScene() {
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	
+	// 設定を読み込む
+	GameConfig::Load();
 	// エンジンの初期化
-	KamataEngine::Initialize(L"LE3D_18_フジワラ_リオ");
+	KamataEngine::Initialize(GameConfig::WindowTitleW().c_str());
 
 	// DirectXCommonインスタンスの取得
 	DirectXCommon* dxCommon = DirectXCommon::GetInstance();

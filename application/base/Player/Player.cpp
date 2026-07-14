@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <unordered_map>
-#include "Config/ConfigLoader.h"
+#include "../../ect/Config/ConfigLoader.h"
+#include "../../ect/Config/GameConfig.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -8,7 +9,7 @@
 // 初期化
 void Player::Initialize(Camera* camera) {
 	// プレイヤーモデルの生成
-	model_ = Model::CreateFromOBJ("player", true);
+	model_ = Model::CreateFromOBJ(GameConfig::playerModelName.c_str(), true);
 	// 入力の取得
 	input_ = Input::GetInstance();
 	// ワールド変換の初期化
@@ -18,7 +19,7 @@ void Player::Initialize(Camera* camera) {
 
 	// プレイヤー弾の設定を読み込む（データ駆動）
 	std::unordered_map<std::string, BulletConfig> bullets;
-	ConfigLoader::LoadBulletsConfig("Resources/config/bullets.json", bullets);
+	ConfigLoader::LoadBulletsConfig(GameConfig::bulletsConfigPath, bullets);
 	auto it = bullets.find("player_small");
 	if (it != bullets.end()) {
 		playerBulletConfig_ = it->second;
@@ -30,16 +31,16 @@ void Player::Move() {
 
 	// WASDキーで移動
 	if (input_->GetInstance()->PushKey(DIK_W)) {
-		worldTransform.translation_.y += 1.0f;
+		worldTransform.translation_.y += GameConfig::playerMoveStep;
 	}
 	if (input_->GetInstance()->PushKey(DIK_S)) {
-		worldTransform.translation_.y -= 1.0f;
+		worldTransform.translation_.y -= GameConfig::playerMoveStep;
 	}
 	if (input_->GetInstance()->PushKey(DIK_A)) {
-		worldTransform.translation_.x -= 1.0f;
+		worldTransform.translation_.x -= GameConfig::playerMoveStep;
 	}
 	if (input_->GetInstance()->PushKey(DIK_D)) {
-		worldTransform.translation_.x += 1.0f;
+		worldTransform.translation_.x += GameConfig::playerMoveStep;
 	}
 
 }

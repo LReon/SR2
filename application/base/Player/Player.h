@@ -2,9 +2,9 @@
 
 #include <list>
 #include "PlayerBullet.h"
-#include "Object/IObject.h"
-#include "Object/ObjectPool.h"
-#include "Config/ConfigLoader.h"
+#include "../Object/IObject.h"
+#include "../Object/ObjectPool.h"
+#include "../../ect/Config/ConfigLoader.h"
 
 
 

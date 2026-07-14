@@ -1,0 +1,25 @@
+{
+  "windowTitle": "LE3D_18_フジワラ_リオ",
+  "bulletsConfigPath": "Resources/config/bullets.json",
+  "enemyConfigPath": "Resources/config/enemy.json",
+
+  "playerModelName": "player",
+  "enemyModelName": "enemy",
+  "skyDomeModelName": "skyDome",
+
+  "playerMoveStep": 1.0,
+
+  "enemy": {
+    "hp": 100,
+    "fireInterval": 30,
+    "radius": 2.0,
+    "angleStep": 0.05,
+    "centerX": 20.0,
+    "centerY": 0.0,
+    "moveRadius": 10.0,
+    "amplitude": 10.0,
+    "frequency": 0.5,
+    "a": 10.0,
+    "bulletSpeed": -2.0
+  }
+}

@@ -1,9 +1,9 @@
 #pragma once
 #include "KamataEngine.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "SkyDome.h"
-#include "EnemyBullet.h"
+#include "../Player/Player.h"
+#include "../Enemy/Enemy.h"
+#include "../SkyDome/SkyDome.h"
+#include "../Enemy/EnemyBullet.h"
 
 using namespace KamataEngine;
 

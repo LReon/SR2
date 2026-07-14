@@ -114,6 +114,7 @@
     <ClCompile Include="application\base\Player\PlayerBullet.cpp" />
     <ClCompile Include="application\base\scene\ClearScene.cpp" />
     <ClCompile Include="application\base\scene\GameScene.cpp" />
+    <ClCompile Include="application\ect\Config\GameConfig.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="application\base\Player\Player.cpp" />
     <ClCompile Include="application\base\scene\TitleScene.cpp" />
@@ -135,6 +136,7 @@
     </FxCompile>
     <None Include="Resources\config\bullets.json" />
     <None Include="Resources\config\enemy.json" />
+    <None Include="Resources\config\game_config.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
     <None Include="Resources\shaders\Primitive.hlsli" />
     <None Include="Resources\shaders\Shape.hlsli">
@@ -201,6 +203,7 @@
     <ClInclude Include="application\ect\Config\ConfigLoader.h" />
     <ClInclude Include="application\base\Enemy\Enemy.h" />
     <ClInclude Include="application\base\Enemy\EnemyBullet.h" />
+    <ClInclude Include="application\ect\Config\GameConfig.h" />
     <ClInclude Include="application\ect\nlohmann\json.hpp" />
     <ClInclude Include="application\base\Object\IObject.h" />
     <ClInclude Include="application\base\Object\ObjectPool.h" />

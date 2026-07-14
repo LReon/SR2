@@ -1,7 +1,7 @@
 #pragma once
 
-#include "..//State/Enemy/State.h"
-#include "../State/Enemy/UpDownMoveState.h"
+#include "State.h"
+#include "UpDownMoveState.h"
 
 
 class CircleMoveState : public IEnemyState {

@@ -1,8 +1,9 @@
 #include "SkyDome.h"
+#include "../../ect/Config/GameConfig.h"
 
 // 初期化
 void SkyDome::Initialize(Camera* camera) {
-	model_ = Model::CreateFromOBJ("skyDome",true);
+	model_ = Model::CreateFromOBJ(GameConfig::skyDomeModelName.c_str(),true);
 	worldTransform_.Initialize();
 	worldTransform_.scale_.x += 10.0f;
 	worldTransform_.scale_.y += 10.0f;

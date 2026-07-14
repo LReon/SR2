@@ -1,5 +1,5 @@
 #pragma once
-#include "../State/Enemy/State.h"
+#include "State.h"
 
 class InfiniteMoveState : public IEnemyState {
 public:
